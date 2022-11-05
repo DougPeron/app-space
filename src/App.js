@@ -22,8 +22,8 @@ function App() {
     <>
     <Header/>
     <Main>
-    {itens.map(({name, country, flickr_images})=>{
-        return <CardSpace name={name} country={country} flickr_images={flickr_images}/>
+    {itens.map(({name, country, flickr_images, description, height, diameter, mass})=>{
+        return <CardSpace name={name} country={country} flickr_images={flickr_images} description={description} height={height} diameter={diameter} mass={mass}/>
       })}
     </Main>
     <Footer/>

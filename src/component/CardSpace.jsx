@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -6,22 +7,39 @@ import { Card } from "react-bootstrap";
 function CardSpace({
 country  = 'Cidade',
 name='Nome',  
-flickr_images=['imagens'], 
+flickr_images=[], 
 description = 'Descrição',
-heght = 'Altura',
-diameter = 'Diametro',
-mass = 'Massa',
+height = [],
+diameter = [],
+mass = [],
 }) {
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
   function handleShow() {
-    
+    console.log(flickr_images)
+    setItens(flickr_images)
     setShow(true);
   }
+  const [itens, setItens] = useState([]);
+  let i = -1
+  let h = []
+  let d = []
+  let m = []
+  for (const [key, value] of Object.entries(height)) {
+    h.push(value);
+  }
+  for (const [key, value] of Object.entries(diameter)) {
+    d.push(value);
+  }
+  for (const [key, value] of Object.entries(mass)) {
+    m.push(value);
+  }
+  console.log(h, d, m)
 
   return (
+    
     <Card className="text-white">
       <Card.Img
         src={flickr_images[0]}
@@ -43,10 +61,30 @@ mass = 'Massa',
               <Modal.Title>{name} - {country}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <h5>Descrição = {description}</h5>
-              <h5>Altura = {heght}</h5>
-              <h5>Diametro = {diameter}</h5>
-              <h5>Massa = {mass}</h5>
+              <div className='carousel-container'>
+                <Carousel>
+                  {itens.map(()=>{
+                    i +=1
+                    return(
+                    <Carousel.Item>
+                      <img
+                        className="d-block"
+                        src={flickr_images[i]}
+                      />
+                    </Carousel.Item>)
+                    
+                  })}
+                  
+                </Carousel>
+              </div>
+              <h5>Descrição: </h5>
+              <p>{description}</p>
+              <h5>Altura: </h5>
+              <p>{h[0]} metros</p>
+              <h5>Diametro: </h5>
+              <p>{d[0]} metros</p>
+              <h5>Massa: </h5>
+              <p>{m[0]} kilogramas</p>
             </Modal.Body>
           </Modal>
         </div>

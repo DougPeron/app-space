@@ -76,3 +76,19 @@ flex-direction: column;
   border-radius: 15px;
   max-height: 60vh;
 }
+
+.pagination{
+  --bs-pagination-color: #000 !important;
+  --bs-pagination-border-color: #fff !important;
+  --bs-pagination-bg:#000 !;
+  --bs-pagination-active-bg: #d5d5d5 !important;
+  --bs-pagination-active-color: #000 !important;
+  --bs-pagination-active-border-color: #fff !important;
+  --bs-pagination-focus-color: #d5d5d5 !important;
+  --bs-pagination-hover-color:#666565 !important;
+  background-color: #000;
+  justify-content: center;
+}
+ul{
+  margin-bottom: 0 !important;
+}

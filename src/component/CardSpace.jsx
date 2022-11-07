@@ -36,7 +36,6 @@ mass = [],
   for (const [key, value] of Object.entries(mass)) {
     m.push(value);
   }
-  console.log(h, d, m)
 
   return (
     

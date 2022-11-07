@@ -5,27 +5,62 @@ import Main from './component/Main';
 import { useEffect, useState } from 'react';
 import CardSpace from './component/CardSpace';
 import Footer from './component/Footer';
+import Pagination from 'react-bootstrap/Pagination';
+
+
 
 function App() {
+  const pageLimit = 2
   const [itens, setItens] = useState([]);
+  const [offset, setOffset] = useState(1);
+  const [pag , setPag] = useState (0);
   useEffect(() => {
     apiGetBackend()
       .then((getBackend) => {
-        setItens(getBackend)
+        setPag(getBackend.length/pageLimit)
+        showCards(getBackend)
       })
       .catch((err) => {
         console.log("erro " + err);
       });
-  }, []);
+  }, [offset]);
+
+  
+  let items = [];
+  for (let number = 1; number <= pag; number++) {
+  items.push(
+    <Pagination.Item id={number} key={number} active={number === offset} onClick={()=> {setOffset(number)}}>
+      {number}
+    </Pagination.Item>,
+  );
+}
+function showCards( getBackend){
+  let limit = pageLimit -1
+  let cardShow = offset * limit;
+  let listCards = []
+  let i = 0
+  if (offset === 2){
+    i = 2
+    cardShow = 3
+  }
+  
+  for( i ; i <= cardShow; i++){
+  listCards.push(getBackend[i])
+}
+console.log(listCards)
+return setItens(listCards)
+}
+  //
   
   return (
     <>
     <Header/>
     <Main>
-    {itens.map(({name, country, flickr_images, description, height, diameter, mass})=>{
-        return <CardSpace name={name} country={country} flickr_images={flickr_images} description={description} height={height} diameter={diameter} mass={mass}/>
+      {itens.map(({name, country, flickr_images, description, height, diameter, mass})=>{
+      return <CardSpace name={name} country={country} flickr_images={flickr_images} description={description} height={height} diameter={diameter} mass={mass}/>
       })}
     </Main>
+    <Pagination>{items}</Pagination>
     <Footer/>
     </>
   );

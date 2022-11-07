@@ -35,19 +35,13 @@ function App() {
   );
 }
 function showCards( getBackend){
-  let limit = pageLimit -1
-  let cardShow = offset * limit;
+  let cardShow = offset * pageLimit;
+  let i = cardShow - pageLimit;
   let listCards = []
-  let i = 0
-  if (offset === 2){
-    i = 2
-    cardShow = 3
-  }
   
-  for( i ; i <= cardShow; i++){
+  for( i ; i < cardShow; i++){
   listCards.push(getBackend[i])
 }
-console.log(listCards)
 return setItens(listCards)
 }
   //
